@@ -1,0 +1,152 @@
+set nocompatible
+filetype off
+call plug#begin('~/.vim/plugged')
+
+"**********Plugins**********
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'mattn/emmet-vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mhinz/neovim-remote'
+Plug 'tpope/vim-obsession'
+Plug 'tmux-plugins/tmux-resurrect'
+Plug 'Raimondi/delimitMate'
+Plug 'Yggdroot/indentLine'
+Plug 'ervandew/supertab'
+Plug 'craigemery/vim-autotag'
+Plug 'dylon/vim-antlr'
+Plug 'othree/html5.vim'
+
+"--Preference
+filetype plugin indent on
+syntax enable
+set path+=**;
+set wildmenu
+set encoding=utf-8
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set rnu
+set nu
+set scrolloff=5
+set background=dark
+set backspace=2
+colorscheme solarized
+map <C-J> <C-W>j<C-W>_
+map <C-K> <C-W>k<C-W>_
+nmap <CR> o<Esc>
+nnoremap j gj
+nnoremap k gk
+nnoremap ; :
+vmap <C>C :"*y<CR>
+vmap <C>V :"*p<CR>
+nmap <CR> :nohlsearch<CR>
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
+
+"Persistent undo
+if has('persistent_undo')      "check if your vim version supports it
+  set undofile                 "turn on the feature
+  set undodir=$HOME/.vim/undo  "directory where the undo files will be stored
+  endif
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+
+  "HTML Preference
+  autocmd FileType html setlocal sw=2 ts=2
+  autocmd FileType jsp setlocal sw=2 ts=2
+
+  "Java Preference
+  autocmd FileType java setlocal sw=4 ts=4
+
+"--Antlr
+au BufRead,BufNewFile *.g4 set filetype=antlr4
+
+"--Airline
+let g:airline_theme='luna'
+
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+"--NERDTree
+autocmd StdinReadPre * let s:std_in=1
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"--Syntastic
+
+" Do not echo errors in command window
+let g:syntastic_echo_current_error = 0
+
+" On by default
+let g:syntastic_mode_map = { 'mode': 'active',
+    \ 'active_filetypes': [],
+    \ 'passive_filetypes': [] }
+
+" Better :sign interface symbols
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '!'
+
+" Use jshint (uses ~/.jshintrc)
+let g:syntastic_javascript_checkers = ['jshint']
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set laststatus=2
+let g:airline#extensions#tabline#enabled=1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"--eclim
+set completeopt-=preview
+
+"--CTRLP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+
+"--Emmet
+let g:user_emmet_leader_key='<C-Z>'
+
+
+"--delimitMate
+let delimitMate_expand_cr = 1
+
+
+"--Supertab
+let g:SuperTabClosePreviewOnPopupClose = 1
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = '<c-x><c-u>'
+
+" Use the popup menu by default; only insert the longest common text of the completion matches;
+" don't automatically show extra information in the preview window.
+set completeopt=longest,menuone
+
+"Select highlighted option in popup menu
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+"when the menu appears, the <Down> key will be simulated.
+"This way you can keep typing characters to narrow the matches,
+"In the above mappings, the second one is a little more exotic:
+"it simulates <C-X><C-O> to bring up the omni completion menu,
+"then it simulates <C-N><C-P> to remove the longest common text,
+"and finally it simulates <Down> again to keep a match highlighted.
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+call plug#end()
