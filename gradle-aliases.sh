@@ -11,9 +11,10 @@ fi
 gr() {
     command="gradle run"
 
-    for arg in $@; do
-        command+=" -P=$arg"
-    done
+    if [ $# -gt 0 ]; then
+        command+=" -Ptestfile=$1"
+    fi
 
-    eval command
+    eval $command
 }
+
