@@ -84,6 +84,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias c=clear
-alias .=source
-alias eclimd="/Applications/Eclipse.app/Contents/Eclipse/eclimd"
+
+source ~/.dotfiles/common-aliases.sh
+source ~/.dotfiles/gradle-aliases.sh
