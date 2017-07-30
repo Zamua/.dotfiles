@@ -3,8 +3,11 @@ alias g="gradle"
 alias gb="gradle build"
 alias gt="gradle test"
 
-#remove git-remote alias
-unalias gr
+#if already bound, remove alias
+
+if type gr > /dev/null; then
+    unalias gr
+fi
 
 gr() {
     command="gradle run"
