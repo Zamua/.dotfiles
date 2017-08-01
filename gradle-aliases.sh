@@ -1,10 +1,12 @@
-#Gradle
+#Unbind
+unalias gr 2>/dev/null
+unalias gc 2>/dev/null
+
+#Bind
 alias g="gradle"
 alias gb="gradle build"
+alias gc="gradle clean"
 alias gt="gradle test"
-
-#if already bound, remove alias
-unalias gr 2>/dev/null
 
 gr() {
     command="gradle run"
