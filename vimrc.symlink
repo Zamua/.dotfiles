@@ -19,8 +19,7 @@ Plug 'craigemery/vim-autotag'
 Plug 'dylon/vim-antlr'
 Plug 'othree/html5.vim'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'Valloric/YouCompleteMe'
-Plug 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'                  "Style check python
 
 "--Preference
 filetype plugin indent on
@@ -28,6 +27,8 @@ filetype plugin indent on
 if !exists("g:syntax_on")
         syntax enable
 endif
+
+let mapleader=','
 
 set path+=**;
 set wildmenu
@@ -127,6 +128,10 @@ let g:syntastic_check_on_wq = 0
 
 "--eclim
 set completeopt-=preview
+map <leader>i :JavaImportOrganize<cr>
+map <leader>f :%JavaFormat<cr>
+map <leader>d :JavaSearchContext<cr>
+
 
 "--CTRLP
 let g:ctrlp_map = '<c-p>'
@@ -160,8 +165,11 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "then it simulates <C-N><C-P> to remove the longest common text,
 "and finally it simulates <Down> again to keep a match highlighted.
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+"--YouCompleteMe
+"let g:ycm_python_binary_path = 'python'
 
 call plug#end()

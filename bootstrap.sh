@@ -142,6 +142,9 @@ setup_vim () {
 
   vim +PlugInstall +qall
 
+  mkdir -p ~/.vim/colors/
+  cp ~/.dotfiles/colors/* ~/.vim/colors/
+
 }
 
 setup_gitconfig
