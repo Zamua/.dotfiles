@@ -20,12 +20,14 @@ Plug 'dylon/vim-antlr'
 Plug 'othree/html5.vim'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'                  "Style check python
+Plug 'scrooloose/nerdcommenter'
+Plug 'altercation/vim-colors-solarized'
 
 "--Preference
 filetype plugin indent on
 
 if !exists("g:syntax_on")
-        syntax enable
+    syntax enable
 endif
 
 let mapleader=','
@@ -41,9 +43,9 @@ set nu
 set scrolloff=5
 set background=dark
 set backspace=2
-colorscheme solarized
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
+map T <C-W>T
 nmap <CR> o<Esc>
 nnoremap j gj
 nnoremap k gk
@@ -63,7 +65,7 @@ if has('persistent_undo')      "check if your vim version supports it
   endif
 
 "Remove all trailing whitespace by pressing F5
-nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
 "HTML Preference
 autocmd FileType html setlocal sw=2 ts=2
@@ -71,9 +73,10 @@ autocmd FileType jsp setlocal sw=2 ts=2
 
 "Java Preference
 autocmd FileType java setlocal sw=4 ts=4
+    \ smartindent
 
 "Python Preference
-autocmd FileType py setlocal tabstop=4
+autocmd FileType py setlocal ts=4
     \ softtabstop=4
     \ shiftwidth=4
     \ textwidth=79
@@ -86,7 +89,7 @@ let python_highlight_all=1
 au BufRead,BufNewFile *.g4 set filetype=antlr4
 
 "--Airline
-let g:airline_theme='luna'
+let g:airline_theme='solarized'
 
 let g:airline_powerline_fonts = 1
 
@@ -131,6 +134,7 @@ set completeopt-=preview
 map <leader>i :JavaImportOrganize<cr>
 map <leader>f :%JavaFormat<cr>
 map <leader>d :JavaSearchContext<cr>
+map <leader>c :JavaCorrect<cr>
 
 
 "--CTRLP
@@ -173,3 +177,21 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 "let g:ycm_python_binary_path = 'python'
 
 call plug#end()
+
+"--Colors
+set background=light
+colorscheme solarized
+call togglebg#map("<F7>")
+
+function! Solar_swap()
+    if &background ==? 'dark'
+        set background=light
+        execute "silent !tmux source-file " . shellescape(expand('~/.tmux/plugins/tmux-colors-solarized/tmuxcolors-light.conf'))
+    else
+        set background=dark
+        execute "silent !tmux source-file " . shellescape(expand('~/.tmux/plugins/tmux-colors-solarized/tmuxcolors-dark.conf'))
+    endif
+    silent !osascript -e 'tell app "System Events" to keystroke "s" using {shift down, option down, control down}'
+endfunction
+
+command! SolarSwap call Solar_swap()
