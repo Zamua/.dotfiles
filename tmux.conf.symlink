@@ -125,11 +125,8 @@ set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'seebi/tmux-colors-solarized'
 
-# Colors
-set -g @colors-solarized 'dark'
-
 # Initialize TMUX plugin manager
 run '~/.tmux/plugins/tpm/tpm'
 
 # Fix pbpaste/pbcopy
-set-option -g default-command "reattach-to-user-namespace -l zsh"
+#set-option -g default-command "reattach-to-user-namespace -l zsh"
