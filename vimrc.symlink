@@ -34,6 +34,7 @@ let mapleader=','
 
 set path+=**;
 set wildmenu
+set wildignore=*.class
 set encoding=utf-8
 set tabstop=4
 set shiftwidth=4
@@ -41,7 +42,6 @@ set expandtab
 set rnu
 set nu
 set scrolloff=5
-set background=dark
 set backspace=2
 map <C-J> <C-W>j<C-W>_
 map <C-K> <C-W>k<C-W>_
@@ -65,7 +65,7 @@ if has('persistent_undo')      "check if your vim version supports it
   endif
 
 "Remove all trailing whitespace by pressing F5
-nnoremap <F4> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+nnoremap <F4> mm:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>`m
 
 "HTML Preference
 autocmd FileType html setlocal sw=2 ts=2
@@ -180,18 +180,6 @@ call plug#end()
 
 "--Colors
 set background=light
+"set background=dark
 colorscheme solarized
 call togglebg#map("<F7>")
-
-function! Solar_swap()
-    if &background ==? 'dark'
-        set background=light
-        execute "silent !tmux source-file " . shellescape(expand('~/.tmux/plugins/tmux-colors-solarized/tmuxcolors-light.conf'))
-    else
-        set background=dark
-        execute "silent !tmux source-file " . shellescape(expand('~/.tmux/plugins/tmux-colors-solarized/tmuxcolors-dark.conf'))
-    endif
-    silent !osascript -e 'tell app "System Events" to keystroke "s" using {shift down, option down, control down}'
-endfunction
-
-command! SolarSwap call Solar_swap()
