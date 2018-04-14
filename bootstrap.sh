@@ -137,7 +137,7 @@ install_dotfiles () {
 
 setup_gitignore () {
   info 'installing gitignore'
-  link_file $DOTFILES_ROOT/.gitignore.symlink ~/.gitignore
+  link_file "$DOTFILES_ROOT"/.dotfiles/.gitignore.symlink ~/.gitignore
 }
 
 setup_vim () {
