@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/sbin:/usr/sbin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -89,5 +89,5 @@ source ~/.dotfiles/common-aliases.sh
 source ~/.dotfiles/gradle-aliases.sh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/ec2-user/.sdkman"
-[[ -s "/home/ec2-user/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ec2-user/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="/home/ubuntu/.sdkman"
+[[ -s "/home/ubuntu/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ubuntu/.sdkman/bin/sdkman-init.sh"
