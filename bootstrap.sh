@@ -135,6 +135,11 @@ install_dotfiles () {
   done
 }
 
+setup_gitignore () {
+  info 'installing gitignore'
+  link_file $DOTFILES_ROOT/.gitignore.symlink ~/.gitignore
+}
+
 setup_vim () {
   info 'customizing vim'
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -149,6 +154,7 @@ setup_vim () {
 
 setup_gitconfig
 install_dotfiles
+setup_gitignore
 setup_vim
 
 echo ''
