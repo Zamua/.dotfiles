@@ -22,6 +22,17 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'nvie/vim-flake8'                  "Style check python
 Plug 'scrooloose/nerdcommenter'
 Plug 'altercation/vim-colors-solarized'
+Plug 'artur-shaik/vim-javacomplete2'
+
+"--deoplete
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 "--Preference
 filetype plugin indent on
@@ -108,7 +119,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:syntastic_echo_current_error = 0
 
 " On by default
-let g:syntastic_mode_map = { 'mode': 'active',
+let g:syntastic_mode_map = { 'mode': 'passive',
     \ 'active_filetypes': [],
     \ 'passive_filetypes': [] }
 
@@ -130,11 +141,11 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 "--eclim
-set completeopt-=preview
-map <leader>i :JavaImportOrganize<cr>
-map <leader>f :%JavaFormat<cr>
-map <leader>d :JavaSearchContext<cr>
-map <leader>c :JavaCorrect<cr>
+"set completeopt-=preview
+"map <leader>i :JavaImportOrganize<cr>
+"map <leader>f :%JavaFormat<cr>
+"map <leader>d :JavaSearchContext<cr>
+"map <leader>c :JavaCorrect<cr>
 
 
 "--CTRLP
@@ -151,16 +162,16 @@ let delimitMate_expand_cr = 1
 
 
 "--Supertab
-let g:SuperTabClosePreviewOnPopupClose = 1
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = '<c-x><c-u>'
+"let g:SuperTabClosePreviewOnPopupClose = 1
+let g:SuperTabDefaultCompletionType = '<c-n>'
+"let g:SuperTabContextDefaultCompletionType = '<c-x><c-u>'
 
 " Use the popup menu by default; only insert the longest common text of the completion matches;
 " don't automatically show extra information in the preview window.
-set completeopt=longest,menuone
+"set completeopt=longest,menuone
 
 "Select highlighted option in popup menu
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "when the menu appears, the <Down> key will be simulated.
 "This way you can keep typing characters to narrow the matches,
@@ -168,17 +179,23 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "it simulates <C-X><C-O> to bring up the omni completion menu,
 "then it simulates <C-N><C-P> to remove the longest common text,
 "and finally it simulates <Down> again to keep a match highlighted.
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 "--YouCompleteMe
 "let g:ycm_python_binary_path = 'python'
 
+"--JavaComplete2
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
 call plug#end()
 
 "--Colors
+"fix  colors on ipad
+let g:solarized_termtrans = 1
+
 set background=light
 set background=dark
 colorscheme solarized
